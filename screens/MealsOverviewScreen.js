@@ -1,6 +1,5 @@
-import { useEffect } from "react";
+import { useEffect, useLayoutEffect } from "react";
 import { FlatList, StyleSheet, Text, View } from "react-native";
-
 
 import { MEALS, CATEGORIES } from "../data/dummy-data";
 import MealItem from "../components/MealItem";
@@ -10,7 +9,6 @@ function MealsOverviewScreen({ route, navigation }) {
   // route.params : Object that contains params passed in category screens
   const catId = route.params.categoryId;
 
-
   // filter meal that match the corresponding category
   const displayMeals = MEALS.filter((mealItem) => {
     return mealItem.categoryIds.indexOf(catId) >= 0;
@@ -18,7 +16,9 @@ function MealsOverviewScreen({ route, navigation }) {
   // you can use this hook as alternative to route.params for not registered screen.
   // const route = useRoute();
 
-  useEffect(() => {
+  // TODO : Why use effect here ?
+  // Execute simultaneously
+  useLayoutEffect(() => {
     // We find the title for the categorie id we have
     const categoryTitle = CATEGORIES.find(
       (category) => category.id === catId
@@ -28,6 +28,17 @@ function MealsOverviewScreen({ route, navigation }) {
   }, [catId, navigation]);
 
 
+  // // Execute after the component function was exectued the first time.
+  // So the title will be updated once the component is done. Not so beautiful
+  // on screen, use useLayoutEffect instead :)
+  // useEffect(() => {
+  //   // We find the title for the categorie id we have
+  //   const categoryTitle = CATEGORIES.find(
+  //     (category) => category.id === catId
+  //   ).title;
+  //   // We set the options title for the navigation header to the categoryTitle defined above
+  //   navigation.setOptions({ title: categoryTitle });
+  // }, [catId, navigation]);
 
   const renderMealItem = (itemData) => {
     const item = itemData.item;
