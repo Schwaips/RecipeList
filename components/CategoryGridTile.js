@@ -1,4 +1,7 @@
 import { Pressable, View, Text, StyleSheet, Platform } from "react-native";
+// You can use navigation even if this isn't a screen
+// import { useNavigation } from "@react-navigation/native";
+// const navigation = useNavigation();
 
 function CategoryGridTile({ title, color, onPress }) {
   return (

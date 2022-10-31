@@ -6,7 +6,11 @@ import { CATEGORIES } from "../data/dummy-data";
 function CategoriesScreen({ navigation }) {
   function renderCategoryItem(itemData) {
     const pressHandler = () => {
-      navigation.navigate("MealsOverview");
+      // here, params object where categoryId is will be passed.
+      navigation.navigate("MealsOverview", {
+        categoryId: itemData.item.id,
+
+      });
     };
 
     return (
