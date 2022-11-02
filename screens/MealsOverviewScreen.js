@@ -50,18 +50,10 @@ function MealsOverviewScreen({ route, navigation }) {
       affordability: item.affordability,
     };
 
-    // const pressHandler = () => {
-    //   navigation.navigate("MealDetail", {
-    //     mealId: itemData.item.id,
-
-    //   });
-    // }
-
     return (
       <MealItem
         // pass mealItemProps object defined above as props
         {...mealItemProps}
-        // onPress={pressHandler}
       />
     );
   };
