@@ -1,5 +1,5 @@
 import { useEffect, useLayoutEffect } from "react";
-import { FlatList, StyleSheet, Text, View } from "react-native";
+import { FlatList, Pressable, StyleSheet, Text, View } from "react-native";
 
 import { MEALS, CATEGORIES } from "../data/dummy-data";
 import MealItem from "../components/MealItem";
@@ -27,7 +27,6 @@ function MealsOverviewScreen({ route, navigation }) {
     navigation.setOptions({ title: categoryTitle });
   }, [catId, navigation]);
 
-
   // // Execute after the component function was exectued the first time.
   // So the title will be updated once the component is done. Not so beautiful
   // on screen, use useLayoutEffect instead :)
@@ -43,6 +42,7 @@ function MealsOverviewScreen({ route, navigation }) {
   const renderMealItem = (itemData) => {
     const item = itemData.item;
     const mealItemProps = {
+      id: item.id,
       title: item.title,
       imageUrl: item.imageUrl,
       duration: item.duration,
@@ -50,10 +50,18 @@ function MealsOverviewScreen({ route, navigation }) {
       affordability: item.affordability,
     };
 
+    // const pressHandler = () => {
+    //   navigation.navigate("MealDetail", {
+    //     mealId: itemData.item.id,
+
+    //   });
+    // }
+
     return (
       <MealItem
         // pass mealItemProps object defined above as props
         {...mealItemProps}
+        // onPress={pressHandler}
       />
     );
   };
