@@ -1,13 +1,43 @@
-import { Text, View, Image, StyleSheet, ScrollView } from "react-native";
+import {
+  Text,
+  View,
+  Image,
+  StyleSheet,
+  ScrollView,
+  Button,
+} from "react-native";
 import { MEALS } from "../data/dummy-data";
 import MealDetails from "../components/MealDetails";
+import IconButton from "../components/IconButton";
 
 import Subtitle from "../components/MealDetail/Subtitle";
 import List from "../components/MealDetail/List";
+import { useLayoutEffect } from "react";
 
-function MealDetailScreen({ route }) {
+function MealDetailScreen({ route, navigation }) {
   const mealId = route.params.mealId;
   const selectedMeal = MEALS.find((meal) => meal.id === mealId);
+
+  const headerButtonPressHandler = () => {
+    console.log("Hey tyou pressed");
+  };
+
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      headerRight: () => {
+        return (
+          <IconButton
+            onPress={headerButtonPressHandler}
+            icon="star"
+            color="white"
+          />
+        );
+      },
+      title: selectedMeal.title
+    });
+  }, [navigation, headerButtonPressHandler]);
+  // We set the options title for the navigation header to the categoryTitle defined above
+  //
 
   return (
     <ScrollView style={styles.rootContainer}>
@@ -36,7 +66,7 @@ export default MealDetailScreen;
 
 const styles = StyleSheet.create({
   rootContainer: {
-    marginBottom: 32
+    marginBottom: 32,
   },
   image: {
     width: "100%",
@@ -53,9 +83,9 @@ const styles = StyleSheet.create({
     color: "white",
   },
   listContainer: {
-    width: '80%',
+    width: "80%",
   },
   listOuterContainer: {
-    alignItems: 'center'
-  }
+    alignItems: "center",
+  },
 });
