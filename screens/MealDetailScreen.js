@@ -36,8 +36,6 @@ function MealDetailScreen({ route, navigation }) {
       title: selectedMeal.title
     });
   }, [navigation, headerButtonPressHandler]);
-  // We set the options title for the navigation header to the categoryTitle defined above
-  //
 
   return (
     <ScrollView style={styles.rootContainer}>
