@@ -27,7 +27,7 @@ function MealsList({items}) {
       <FlatList
         data={items}
         keyExtractor={(item) => {
-          item.id;
+          item.id
         }}
         renderItem={renderMealItem}
       />
