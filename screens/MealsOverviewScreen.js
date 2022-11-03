@@ -1,8 +1,8 @@
 import { useEffect, useLayoutEffect } from "react";
-import { FlatList, Pressable, StyleSheet, Text, View } from "react-native";
+
+import MealsList from "../components/MealsList/MealsList";
 
 import { MEALS, CATEGORIES } from "../data/dummy-data";
-import MealItem from "../components/MealItem";
 
 // route props if register as a screen
 function MealsOverviewScreen({ route, navigation }) {
@@ -27,6 +27,8 @@ function MealsOverviewScreen({ route, navigation }) {
     navigation.setOptions({ title: categoryTitle });
   }, [catId, navigation]);
 
+
+  return <MealsList items={displayMeals} />
   // // Execute after the component function was exectued the first time.
   // So the title will be updated once the component is done. Not so beautiful
   // on screen, use useLayoutEffect instead :)
@@ -39,43 +41,43 @@ function MealsOverviewScreen({ route, navigation }) {
   //   navigation.setOptions({ title: categoryTitle });
   // }, [catId, navigation]);
 
-  const renderMealItem = (itemData) => {
-    const item = itemData.item;
-    const mealItemProps = {
-      id: item.id,
-      title: item.title,
-      imageUrl: item.imageUrl,
-      duration: item.duration,
-      complexity: item.complexity,
-      affordability: item.affordability,
-    };
+  // const renderMealItem = (itemData) => {
+  //   const item = itemData.item;
+  //   const mealItemProps = {
+  //     id: item.id,
+  //     title: item.title,
+  //     imageUrl: item.imageUrl,
+  //     duration: item.duration,
+  //     complexity: item.complexity,
+  //     affordability: item.affordability,
+  //   };
 
-    return (
-      <MealItem
-        // pass mealItemProps object defined above as props
-        {...mealItemProps}
-      />
-    );
-  };
+  //   return (
+  //     <MealItem
+  //       // pass mealItemProps object defined above as props
+  //       {...mealItemProps}
+  //     />
+  //   );
+  // };
 
-  return (
-    <View style={styles.container}>
-      <FlatList
-        data={displayMeals}
-        keyExtractor={(item) => {
-          item.id;
-        }}
-        renderItem={renderMealItem}
-      />
-    </View>
-  );
+  // return (
+  //   <View style={styles.container}>
+  //     <FlatList
+  //       data={displayMeals}
+  //       keyExtractor={(item) => {
+  //         item.id;
+  //       }}
+  //       renderItem={renderMealItem}
+  //     />
+  //   </View>
+  // );
 }
 
 export default MealsOverviewScreen;
 
-const styles = StyleSheet.create({
-  container: {
-    padding: 16,
-    flex: 1,
-  },
-});
+// const styles = StyleSheet.create({
+//   container: {
+//     padding: 16,
+//     flex: 1,
+//   },
+// });
