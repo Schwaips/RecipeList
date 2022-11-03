@@ -6,31 +6,54 @@ import {
   ScrollView,
   Button,
 } from "react-native";
-import { useContext } from "react";
+// import { useContext } from "react";
+
+import { useLayoutEffect } from "react";
 import { MEALS } from "../data/dummy-data";
 import MealDetails from "../components/MealDetails";
 import IconButton from "../components/IconButton";
-import { FavoritesContext } from "../store/context/favorite-context";
+// Uncomment to use context instead of redux
+// import { FavoritesContext } from "../store/context/favorite-context";
+import { useSelector, useDispatch } from 'react-redux';
+import { addFavorite, removeFavorite } from "../store/redux/favorites";
 
 import Subtitle from "../components/MealDetail/Subtitle";
 import List from "../components/MealDetail/List";
-import { useLayoutEffect } from "react";
 
 function MealDetailScreen({ route, navigation }) {
-  const favoriteMealsContext = useContext(FavoritesContext);
+
+  // Uncomment if you use context
+  // const favoriteMealsContext = useContext(FavoritesContext);
+
+
+  // to get data from our redux store.
+  // state is provided by react redux when executing the function
+  // state.favoriteMeal will drill in redux slice.
+  // useSelector will read data after actions.
+  const favoriteMealIds = useSelector((state) => state.favoriteMeals.ids);
+  console.log(favoriteMealIds);
+  const dispatch = useDispatch();
 
   const mealId = route.params.mealId;
   const selectedMeal = MEALS.find((meal) => meal.id === mealId);
 
   // we check whether the meal is included in the array of favorite meal.
-  const mealIsFavorite = favoriteMealsContext.ids.includes(mealId)
+  // Uncomment to use context.
+  // const mealIsFavorite = favoriteMealsContext.ids.includes(mealId)
+
+  // comment if you use context.
+  const mealIsFavorite = favoriteMealIds.includes(mealId);
 
   const changeFavoriteStatusHandler = () => {
     console.log("Hey you pressed");
     if(mealIsFavorite) {
-      favoriteMealsContext.removeFavorite(mealId)
+      // Uncomment if you use context
+      // favoriteMealsContext.removeFavorite(mealId)
+      // dispatch will use action from slices.
+      dispatch(removeFavorite({id: mealId}))
     } else {
-      favoriteMealsContext.addFavorite(mealId)
+      // favoriteMealsContext.addFavorite(mealId)
+       dispatch(addFavorite({id: mealId}))
     }
   };
 
